@@ -1,0 +1,16 @@
+@import url(../vendor/normalize.css);
+
+@import url(../vendor/fonts/font.css);
+
+/* common styles */
+
+.page {
+    min-width: 320px;
+    background-color: #000000;
+}
+
+/* header's styles */
+
+.header__logo {
+  width: 103px;
+}
