@@ -14,21 +14,23 @@
   </head>
   <body class="page">
     <!-- header -->
-    <header class="header">
-      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Место" />
+    <header class="page__header header">
+      <img class="header__logo" src="./images/header-logo-white.svg" alt="Логотип Место" />
     </header>
     <main>
       <!-- profile -->
-      <section class="profile">
-        <h1 class="profile__name">Жак-Ив Кусто</h1>
-        <button class="profile__edit-button" type="button"></button>
-        <p class="profile__description">Исследователь океана</p>
+      <section class="page__profile profile">
         <img
           class="profile__image"
           src="./images/custo.jpg"
           srcset="./images/custo@2x.jpg 2x"
           alt="Жак-Ив Кусто в красной шапке"
         />
+        <div class="profile__name-wrapper">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="button"></button>
+        </div>
+        <p class="profile__description">Исследователь океана</p>
         <button class="profile__add-button" type="button"></button>
       </section>
 
