@@ -15,7 +15,82 @@
   <body class="page">
     <!-- header -->
     <header class="header">
-      <img src="./images/header-logo.svg" alt="Логотип Место" class="header__logo" />
+      <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Место" />
     </header>
+    <main>
+      <!-- profile -->
+      <section class="profile">
+        <h1 class="profile__name">Жак-Ив Кусто</h1>
+        <button class="profile__edit-button" type="button"></button>
+        <p class="profile__description">Исследователь океана</p>
+        <img
+          class="profile__image"
+          src="./images/custo.jpg"
+          srcset="./images/custo@2x.jpg 2x"
+          alt="Жак-Ив Кусто в красной шапке"
+        />
+        <button class="profile__add-button" type="button"></button>
+      </section>
+
+      <!-- cards -->
+      <section class="cards">
+        <ul class="cards__list">
+          <li class="cards__item card">
+            <img class="card__image" src="./images/bangkok.jpg" alt="Небоскребы Бангкока" />
+            <div class="card__description">
+              <p class="card__text">Бангкок</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+          <li class="cards__item card">
+            <img class="card__image" src="./images/hurghada.jpg" alt="Верблюд на фоне пирамиды" />
+            <div class="card__description">
+              <p class="card__text">Хургада</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+          <li class="cards__item card">
+            <img class="card__image" src="./images/moscow.jpg" alt="Храм Василия Блаженного" />
+            <div class="card__description">
+              <p class="card__text">Москва</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+          <li class="cards__item card">
+            <img class="card__image" src="./images/newyork.jpg" alt="Бруклинский мост" />
+            <div class="card__description">
+              <p class="card__text">Нью-Йорк</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+          <li class="cards__item card">
+            <img
+              class="card__image"
+              src="./images/rio.jpg"
+              alt="Вид на закате статуи Иисуса Христа в Рио-де-Жанейро"
+            />
+            <div class="card__description">
+              <p class="card__text">Рио-де-Жанейро</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+          <li class="cards__item card">
+            <img
+              class="card__image"
+              src="./images/zelenogradsk.jpg"
+              alt="Водонапорная башня в Зеленоградске"
+            />
+            <div class="card__description">
+              <p class="card__text">Зеленоградск</p>
+              <div class="card__like-icon"></div>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <!-- footer -->
+    <footer class="footer">
+      <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
+    </footer>
   </body>
 </html>
