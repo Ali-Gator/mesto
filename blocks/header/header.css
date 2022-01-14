@@ -1,0 +1,13 @@
+/* header's styles */
+
+.header {
+    min-height: 56px;
+    border-bottom: 1px solid #545454;
+  }
+  
+  @media screen and (min-width: 900px) {
+    .header {
+      max-width: 880px;
+      min-height: 74px;
+    }
+  }

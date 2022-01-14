@@ -1,0 +1,4 @@
+.popup__inputs-wrapper {
+    width: calc(100% - 44px);
+    margin: 75px auto 0;
+  }
