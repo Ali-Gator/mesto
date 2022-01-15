@@ -28,7 +28,7 @@
         />
         <div class="profile__name-wrapper">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <a class="profile__edit-button" href="#"></a>
+          <button class="profile__edit-button" type="button"></button>
         </div>
         <p class="profile__description">Исследователь океана</p>
         <button class="profile__add-button" type="button"></button>
@@ -40,29 +40,29 @@
           <li class="card">
             <img class="card__image" src="./images/bangkok.jpg" alt="Небоскребы Бангкока" />
             <div class="card__description">
-              <p class="card__text">Бангкок</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Бангкок</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/hurghada.jpg" alt="Верблюд на фоне пирамиды" />
             <div class="card__description">
-              <p class="card__text">Хургада</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Хургада</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/moscow.jpg" alt="Храм Василия Блаженного" />
             <div class="card__description">
-              <p class="card__text">Москва</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Москва</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
           <li class="card">
             <img class="card__image" src="./images/newyork.jpg" alt="Бруклинский мост" />
             <div class="card__description">
-              <p class="card__text">Нью-Йорк</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Нью-Йорк</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
           <li class="card">
@@ -72,8 +72,8 @@
               alt="Вид на закате статуи Иисуса Христа в Рио-де-Жанейро"
             />
             <div class="card__description">
-              <p class="card__text">Рио-де-Жанейро</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Рио-де-Жанейро</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
           <li class="card">
@@ -83,8 +83,8 @@
               alt="Водонапорная башня в Зеленоградске"
             />
             <div class="card__description">
-              <p class="card__text">Зеленоградск</p>
-              <div class="card__like-icon"></div>
+              <h2 class="card__text">Зеленоградск</h2>
+              <button class="card__like-icon" type="button"></button>
             </div>
           </li>
         </ul>
@@ -92,19 +92,22 @@
     </main>
     <!-- footer -->
     <footer class="page__footer footer">
-      <p class="footer__copyright">&#169; 2021 Mesto Russia</p>
+      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <section class="popup">
-      <form class="popup__container" method="post">
-        <h2 class="popup__heading">Редактировать профиль</h2>
-        <div class="popup__inputs-wrapper">
-          <input class="popup__text-input" type="text" name="username" placeholder="Имя" />
-          <input class="popup__text-input" type="text" name="description" placeholder="Описание" />
-        </div>
-        <button class="popup__save-button" type="submit">Сохранить</button>
-        <button class="popup__close-button" type="button"></button>
-      </form>
-    </section>
+    <!-- popup -->
+    <div class="popup">
+      <div class="popup__container">
+        <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile">
+          <h2 class="popup__heading">Редактировать профиль</h2>
+          <div class="popup__inputs-wrapper">
+            <input class="popup__text-input popup__text-input_name" type="text" name="username" placeholder="Имя" />
+            <input class="popup__text-input popup__text-input_description" type="text" name="description" placeholder="Описание" />
+          </div>
+          <button class="popup__save-button" type="submit">Сохранить</button>
+          <button class="popup__close-button" type="button"></button>
+        </form>
+      </div>
+    </div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

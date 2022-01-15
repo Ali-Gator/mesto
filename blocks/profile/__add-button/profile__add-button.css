@@ -8,6 +8,7 @@
     background-position: center;
     background-size: 16px;
     border: 2px solid #fff;
+    border-radius: 2px;
     transition: opacity 0.5s ease-in-out;
   }
   
