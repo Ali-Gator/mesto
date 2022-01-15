@@ -2,3 +2,10 @@
     width: calc(100% - 44px);
     margin: 75px auto 0;
   }
+
+  @media screen and (min-width: 600px) {
+    .popup__inputs-wrapper {
+      width: calc(100% - 72px);
+      margin: 46px auto 0;
+    }
+  }
