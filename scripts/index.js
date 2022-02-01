@@ -1,10 +1,17 @@
 const popup = document.querySelector('.popup');
+const popupContainer = popup.querySelectorAll('.popup__container');
+
 const popupEditProfileForm = popup.querySelector('.popup__form_edit-profile');
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileAddButton = document.querySelector('.profile__add-button');
-const popupEditProfileCloseButton = popupEditProfileForm.querySelector('.popup__close-button');
 const EditProfileNameInput = popupEditProfileForm.querySelector('#name-field');
 const EditProfileDescriptionInput = popupEditProfileForm.querySelector('#description-field');
+
+const popupAddCardForm = popup.querySelector('.popup__form_add-card');
+const AddCardHeadingInput = popupAddCardForm.querySelector('#card-heading-field');
+const AddCardImageLinkInput = popupAddCardForm.querySelector('#image-link-field');
+
+const popupCloseButtons = popup.querySelectorAll('.popup__close-button');
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const cardsList = document.querySelector('.cards__list');
@@ -59,16 +66,20 @@ function renderCards(arrCards) {
 
 renderCards(initialCards);
 
-function openPopup() {
+function openPopup(container) {
   popup.classList.add('popup_opened');
+  container.classList.add('popup__container_opened');
 }
 
 function closePopup() {
   popup.classList.remove('popup_opened');
+  popupContainer.forEach((elem) => {
+    elem.classList.remove('popup__container_opened');
+  });
 }
 
 function editButtonHandler() {
-  openPopup();
+  openPopup(popupEditProfileForm.parentElement);
   EditProfileNameInput.value = profileName.textContent;
   EditProfileDescriptionInput.value = profileDescription.textContent;
 }
@@ -80,6 +91,15 @@ function saveButtonHandler(evt) {
   closePopup();
 }
 
+function addButtonHandler () {
+  openPopup(popupAddCardForm.parentElement);
+}
+
 profileEditButton.addEventListener('click', editButtonHandler);
 popupEditProfileForm.addEventListener('submit', saveButtonHandler);
-popupEditProfileCloseButton.addEventListener('click', closePopup);
+
+profileAddButton.addEventListener('click', addButtonHandler);
+
+popupCloseButtons.forEach((elem) => {
+  elem.addEventListener('click', closePopup);
+});
