@@ -48,23 +48,30 @@ const initialCards = [
   },
 ];
 
-function renderCards(arrCards) {
+function createCard(link = '', alt = '', text = '') {
   const cardTemplate = document.querySelector('#card').content;
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
+  const cardElementImage = cardElement.querySelector('.card__image');
+  const cardElementHeading = cardElement.querySelector('.card__text');
 
-  arrCards.forEach((elem) => {
-    const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-    const cardElementImage = cardElement.querySelector('.card__image');
-    const cardElementHeading = cardElement.querySelector('.card__text');
+  cardElementImage.src = link;
+  cardElementImage.alt = alt;
+  cardElementHeading.textContent = text;
 
-    cardElementImage.src = elem.link;
-    cardElementImage.alt = elem.alt;
-    cardElementHeading.textContent = elem.name;
-
-    cardsList.append(cardElement);
-  });
+  return cardElement;
 }
 
-renderCards(initialCards);
+function renderCard(cardValues) {
+  if (Array.isArray(cardValues)) {
+    cardValues.forEach((elem) => {
+      cardsList.append(createCard(elem.link, elem.alt, elem.name));
+    });
+  } else {
+    cardsList.prepend(createCard(cardValues.link, cardValues.alt, cardValues.name));
+  }
+}
+
+renderCard(initialCards);
 
 function openPopup(container) {
   popup.classList.add('popup_opened');
@@ -84,21 +91,39 @@ function editButtonHandler() {
   EditProfileDescriptionInput.value = profileDescription.textContent;
 }
 
-function saveButtonHandler(evt) {
+function saveButtonEditProfileHandler(evt) {
   evt.preventDefault();
   profileName.textContent = EditProfileNameInput.value;
   profileDescription.textContent = EditProfileDescriptionInput.value;
   closePopup();
 }
 
-function addButtonHandler () {
+function addButtonHandler() {
   openPopup(popupAddCardForm.parentElement);
+  AddCardHeadingInput.value = '';
+  AddCardImageLinkInput.value = '';
+
+}
+
+function saveButtonAddCardHandler(evt) {
+  evt.preventDefault();
+  const userCard = {
+    name: '',
+    link: '',
+  };
+
+  userCard.name = AddCardHeadingInput.value;
+  userCard.link = AddCardImageLinkInput.value;
+
+  renderCard(userCard);
+  closePopup();
 }
 
 profileEditButton.addEventListener('click', editButtonHandler);
-popupEditProfileForm.addEventListener('submit', saveButtonHandler);
+popupEditProfileForm.addEventListener('submit', saveButtonEditProfileHandler);
 
 profileAddButton.addEventListener('click', addButtonHandler);
+popupAddCardForm.addEventListener('submit', saveButtonAddCardHandler);
 
 popupCloseButtons.forEach((elem) => {
   elem.addEventListener('click', closePopup);
