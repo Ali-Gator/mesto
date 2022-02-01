@@ -73,6 +73,7 @@ function renderCard(cardValues) {
 
 renderCard(initialCards);
 const likeButtons = cardsList.querySelectorAll('.card__like-icon');
+const deleteButtons = cardsList.querySelectorAll('.card__delete-icon');
 
 function openPopup(container) {
   popup.classList.add('popup_opened');
@@ -117,9 +118,16 @@ function saveButtonAddCardHandler(evt) {
 
   renderCard(userCard);
   const likeButton = cardsList.firstChild.querySelector('.card__like-icon');
+  const deleteButton = cardsList.firstChild.querySelector('.card__delete-icon');
+
   likeButton.addEventListener('click', (evt) => {
     evt.target.classList.toggle('card__like-icon_pressed');
   });
+
+  deleteButton.addEventListener('click', (evt) => {
+    evt.target.closest('.card').remove();
+  });
+
   closePopup();
 }
 
@@ -137,4 +145,10 @@ likeButtons.forEach((elem) => {
   elem.addEventListener('click', (evt) => {
     evt.target.classList.toggle('card__like-icon_pressed');
   });
+});
+
+deleteButtons.forEach(elem => {
+  elem.addEventListener('click', (evt) => {
+    evt.target.closest('.card').remove();
+  })
 });
