@@ -72,6 +72,7 @@ function renderCard(cardValues) {
 }
 
 renderCard(initialCards);
+const likeButtons = cardsList.querySelectorAll('.card__like-icon');
 
 function openPopup(container) {
   popup.classList.add('popup_opened');
@@ -102,7 +103,6 @@ function addButtonHandler() {
   openPopup(popupAddCardForm.parentElement);
   AddCardHeadingInput.value = '';
   AddCardImageLinkInput.value = '';
-
 }
 
 function saveButtonAddCardHandler(evt) {
@@ -116,6 +116,10 @@ function saveButtonAddCardHandler(evt) {
   userCard.link = AddCardImageLinkInput.value;
 
   renderCard(userCard);
+  const likeButton = cardsList.firstChild.querySelector('.card__like-icon');
+  likeButton.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('card__like-icon_pressed');
+  });
   closePopup();
 }
 
@@ -127,4 +131,10 @@ popupAddCardForm.addEventListener('submit', saveButtonAddCardHandler);
 
 popupCloseButtons.forEach((elem) => {
   elem.addEventListener('click', closePopup);
+});
+
+likeButtons.forEach((elem) => {
+  elem.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('card__like-icon_pressed');
+  });
 });
