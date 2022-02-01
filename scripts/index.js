@@ -1,9 +1,10 @@
 const popup = document.querySelector('.popup');
-const popupForm = popup.querySelector('.popup__form_edit-profile');
+const popupEditProfileForm = popup.querySelector('.popup__form_edit-profile');
 const profileEditButton = document.querySelector('.profile__edit-button');
-const popupCloseButton = popupForm.querySelector('.popup__close-button');
-const nameInput = popup.querySelector('#name-field');
-const descriptionInput = popup.querySelector('#description-field');
+const profileAddButton = document.querySelector('.profile__add-button');
+const popupEditProfileCloseButton = popupEditProfileForm.querySelector('.popup__close-button');
+const EditProfileNameInput = popupEditProfileForm.querySelector('#name-field');
+const EditProfileDescriptionInput = popupEditProfileForm.querySelector('#description-field');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const cardsList = document.querySelector('.cards__list');
@@ -68,17 +69,17 @@ function closePopup() {
 
 function editButtonHandler() {
   openPopup();
-  nameInput.value = profileName.textContent;
-  descriptionInput.value = profileDescription.textContent;
+  EditProfileNameInput.value = profileName.textContent;
+  EditProfileDescriptionInput.value = profileDescription.textContent;
 }
 
 function saveButtonHandler(evt) {
   evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileDescription.textContent = descriptionInput.value;
+  profileName.textContent = EditProfileNameInput.value;
+  profileDescription.textContent = EditProfileDescriptionInput.value;
   closePopup();
 }
 
 profileEditButton.addEventListener('click', editButtonHandler);
-popupForm.addEventListener('submit', saveButtonHandler);
-popupCloseButton.addEventListener('click', closePopup);
+popupEditProfileForm.addEventListener('submit', saveButtonHandler);
+popupEditProfileCloseButton.addEventListener('click', closePopup);
