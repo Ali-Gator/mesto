@@ -74,6 +74,7 @@ function renderCard(cardValues) {
 renderCard(initialCards);
 const likeButtons = cardsList.querySelectorAll('.card__like-icon');
 const deleteButtons = cardsList.querySelectorAll('.card__delete-icon');
+const cardImages = cardsList.querySelectorAll('.card__image');
 
 function openPopup(container) {
   popup.classList.add('popup_opened');
@@ -81,10 +82,22 @@ function openPopup(container) {
 }
 
 function closePopup() {
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened', 'popup_theme_dark');
   popupContainer.forEach((elem) => {
     elem.classList.remove('popup__container_opened');
   });
+}
+
+function viewImageHandler(evt) {
+  const popupImageContainer = popup.querySelector('.popup__image-container');
+  const popupImage = popupImageContainer.querySelector('.popup__image');
+  const popupCaption = popupImageContainer.querySelector('.popup__image-caption');
+
+  popup.classList.add('popup_opened', 'popup_theme_dark');
+  popupImageContainer.closest('.popup__container').classList.add('popup__container_opened');
+  popupImage.src = evt.target.src;
+  popupImage.alt = evt.target.alt;
+  popupCaption.textContent = evt.path[1].querySelector('.card__text').textContent;
 }
 
 function editButtonHandler() {
@@ -147,8 +160,16 @@ likeButtons.forEach((elem) => {
   });
 });
 
-deleteButtons.forEach(elem => {
+deleteButtons.forEach((elem) => {
   elem.addEventListener('click', (evt) => {
     evt.target.closest('.card').remove();
-  })
+  });
 });
+
+function cardListHandler(evt) {
+  if (evt.target.classList.contains('card__image')) {
+    viewImageHandler(evt);
+  }
+}
+
+cardsList.addEventListener('click', cardListHandler);
