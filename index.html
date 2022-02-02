@@ -41,7 +41,7 @@
         </ul>
         <template id="card">
           <li class="card">
-            <img class="card__image" alt="">
+            <img class="card__image" alt="" />
             <div class="card__description">
               <h2 class="card__text"></h2>
               <button class="card__like-icon" type="button"></button>
@@ -61,8 +61,20 @@
         <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile">
           <h2 class="popup__heading">Редактировать профиль</h2>
           <div class="popup__inputs-wrapper">
-            <input class="popup__text-input" id="name-field" type="text" name="username" placeholder="Имя" />
-            <input class="popup__text-input" id="description-field" type="text" name="description" placeholder="Описание" />
+            <input
+              class="popup__text-input"
+              id="name-field"
+              type="text"
+              name="username"
+              placeholder="Имя"
+            />
+            <input
+              class="popup__text-input"
+              id="description-field"
+              type="text"
+              name="description"
+              placeholder="Описание"
+            />
           </div>
           <button class="popup__save-button" type="submit">Сохранить</button>
           <button class="popup__close-button" type="button"></button>
@@ -72,14 +84,36 @@
         <form class="popup__form popup__form_add-card" method="post" name="add-card">
           <h2 class="popup__heading">Новое место</h2>
           <div class="popup__inputs-wrapper">
-            <input class="popup__text-input" id="card-heading-field" type="text" name="card-heading" placeholder="Название" />
-            <input class="popup__text-input" id="image-link-field" type="text" name="image-link" placeholder="Ссылка на картинку" />
+            <input
+              class="popup__text-input"
+              id="card-heading-field"
+              type="text"
+              name="card-heading"
+              placeholder="Название"
+            />
+            <input
+              class="popup__text-input"
+              id="image-link-field"
+              type="text"
+              name="image-link"
+              placeholder="Ссылка на картинку"
+            />
           </div>
           <button class="popup__save-button" type="submit">Сохранить</button>
           <button class="popup__close-button" type="button"></button>
         </form>
       </div>
+      <template id="popup-image">
+        <div class="popup__container">
+          <figure class="popup__image-container">
+            <img alt="" class="popup__image" />
+            <figcaption class="popup__image-caption"></figcaption>
+          </figure>
+          <button class="popup__close-button"></button>
+        </div>
+      </template>
     </div>
+
     <script src="./scripts/index.js"></script>
   </body>
 </html>
