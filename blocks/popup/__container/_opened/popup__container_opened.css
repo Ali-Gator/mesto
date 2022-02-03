@@ -1,4 +1,4 @@
 .popup__container_opened {
-    display: block;
-    position: relative;
+    opacity: 1;
+    visibility: visible;
 }

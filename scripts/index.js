@@ -78,7 +78,9 @@ const cardImages = cardsList.querySelectorAll('.card__image');
 
 function openPopup(container) {
   popup.classList.add('popup_opened');
+  console.dir(container);
   container.classList.add('popup__container_opened');
+ 
 }
 
 function closePopup() {
@@ -93,11 +95,12 @@ function viewImageHandler(evt) {
   const popupImage = popupImageContainer.querySelector('.popup__image');
   const popupCaption = popupImageContainer.querySelector('.popup__image-caption');
 
-  popup.classList.add('popup_opened', 'popup_theme_dark');
-  popupImageContainer.closest('.popup__container').classList.add('popup__container_opened');
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
   popupCaption.textContent = evt.path[1].querySelector('.card__text').textContent;
+
+  popup.classList.add('popup_opened', 'popup_theme_dark');
+  popupImageContainer.closest('.popup__container').classList.add('popup__container_opened');
 }
 
 function editButtonHandler() {
