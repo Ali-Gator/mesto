@@ -140,7 +140,6 @@ function viewImageHandler(evt) {
   popupImage.src = '';
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
-  console.log(evt.target.parentElement.querySelector('.card__text').textContent);
   popupCaption.textContent = evt.target.parentElement.querySelector('.card__text').textContent;
 
   popup.classList.add('popup_opened', 'popup_theme_dark');
