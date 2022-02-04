@@ -3,15 +3,14 @@
 .popup {
   width: 100vw;
   height: 100vh;
-  visibility: hidden;
   position: fixed;
   top: 0;
   left: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-areas: 'center';
-  place-items: center;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease-in-out;
 }

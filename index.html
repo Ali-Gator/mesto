@@ -39,24 +39,14 @@
         <ul class="cards__list">
           <!-- container to render cards -->
         </ul>
-        <template id="card">
-          <li class="card">
-            <img class="card__image" alt="" />
-            <div class="card__description">
-              <h2 class="card__text"></h2>
-              <button class="card__like-icon" type="button"></button>
-            </div>
-            <button class="card__delete-icon" type="button"></button>
-          </li>
-        </template>
       </section>
     </main>
     <!-- footer -->
     <footer class="page__footer footer">
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
-    <!-- popup -->
-    <div class="popup">
+    <!-- popups -->
+    <div class="popup popup_type_profile">
       <div class="popup__container">
         <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile">
           <h2 class="popup__heading">Редактировать профиль</h2>
@@ -67,6 +57,7 @@
               type="text"
               name="username"
               placeholder="Имя"
+              required
             />
             <input
               class="popup__text-input"
@@ -74,12 +65,15 @@
               type="text"
               name="description"
               placeholder="Описание"
+              required
             />
           </div>
-          <button class="popup__save-button" type="submit">Сохранить</button>
           <button class="popup__close-button" type="button"></button>
         </form>
+        <button class="popup__save-button" type="submit">Сохранить</button>
       </div>
+    </div>
+    <div class="popup popup_type_card-add">
       <div class="popup__container">
         <form class="popup__form popup__form_add-card" method="post" name="add-card">
           <h2 class="popup__heading">Новое место</h2>
@@ -90,19 +84,23 @@
               type="text"
               name="card-heading"
               placeholder="Название"
+              required
             />
             <input
               class="popup__text-input"
               id="image-link-field"
-              type="text"
+              type="url"
               name="image-link"
               placeholder="Ссылка на картинку"
+              required
             />
           </div>
-          <button class="popup__save-button" type="submit">Сохранить</button>
           <button class="popup__close-button" type="button"></button>
         </form>
+        <button class="popup__save-button" type="submit">Сохранить</button>
       </div>
+    </div>
+    <div class="popup popup_type_picture">
       <div class="popup__container">
         <figure class="popup__image-container">
           <img alt="" class="popup__image" />
@@ -111,6 +109,16 @@
         <button class="popup__close-button"></button>
       </div>
     </div>
+    <template id="card">
+      <li class="card">
+        <img class="card__image" alt="" />
+        <div class="card__description">
+          <h2 class="card__text"></h2>
+          <button class="card__like-icon" type="button"></button>
+        </div>
+        <button class="card__delete-icon" type="button"></button>
+      </li>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>
