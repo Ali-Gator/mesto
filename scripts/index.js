@@ -24,7 +24,7 @@ const cardsList = document.querySelector('.cards__list');
 
 // create card from html template
 
-function createCard(link, text) {
+function createCard({link, name}) {
   const cardTemplate = document.querySelector('.template-card').content;
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = card.querySelector('.card__image');
@@ -33,10 +33,12 @@ function createCard(link, text) {
   const cardDeleteButton = card.querySelector('.card__delete-icon');
 
   cardImage.src = link;
-  cardImage.alt = text;
-  cardHeading.textContent = text;
+  cardImage.alt = name;
+  cardHeading.textContent = name;
 
-  cardImage.addEventListener('click', viewImageHandler);
+  cardImage.addEventListener('click', () => {
+    viewImageHandler({link, name})
+  });
   cardLikeButton.addEventListener('click', handleLikeCard);
   cardDeleteButton.addEventListener('click', handleDeleteCard);
 
@@ -48,10 +50,10 @@ function createCard(link, text) {
 function renderCard(cardValues) {
   if (Array.isArray(cardValues)) {
     cardValues.forEach((elem) => {
-      cardsList.append(createCard(elem.link, elem.name));
+      cardsList.append(createCard(elem));
     });
   } else {
-    cardsList.prepend(createCard(cardValues.link, cardValues.name));
+    cardsList.prepend(createCard(cardValues));
   }
 }
 
@@ -69,7 +71,7 @@ function closePopup(popup) {
 
 // profile edit-button
 
-function editButtonHandler() {
+function openProfilePopup() {
   openPopup(popupEditProfile);
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
@@ -92,7 +94,7 @@ function addButtonHandler() {
 
 // popup add-card save-button
 
-function handleAddNewCard(evt) {
+function openNewCardPopup(evt) {
   evt.preventDefault();
   const userCard = {
     name: inputCardHeading.value,
@@ -106,12 +108,10 @@ function handleAddNewCard(evt) {
 
 // card's image
 
-function viewImageHandler(evt) {
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  popupImageCaption.textContent = evt.target
-    .closest('.card')
-    .querySelector('.card__text').textContent;
+function viewImageHandler({link, name}) {
+  popupImage.src = link;
+  popupImage.alt = name;
+  popupImageCaption.textContent = name;
 
   openPopup(popupViewPicture);
 }
@@ -130,10 +130,10 @@ function handleDeleteCard(evt) {
 
 renderCard(initialCards);
 
-profileEditButton.addEventListener('click', editButtonHandler);
+profileEditButton.addEventListener('click', openProfilePopup);
 popupEditProfileForm.addEventListener('submit', handleProfileSubmit);
 profileAddButton.addEventListener('click', addButtonHandler);
-popupAddCardForm.addEventListener('submit', handleAddNewCard);
+popupAddCardForm.addEventListener('submit', openNewCardPopup);
 popupCloseButtons.forEach((elem) => {
   elem.addEventListener('click', (evt) => {
     closePopup(evt.target.closest('.popup'));
