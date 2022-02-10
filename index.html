@@ -48,7 +48,7 @@
     <!-- popups -->
     <div class="popup popup_type_profile">
       <div class="popup__container">
-        <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile">
+        <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile" novalidate>
           <h2 class="popup__heading">Редактировать профиль</h2>
           <div class="popup__input-wrapper">
             <input
@@ -57,6 +57,8 @@
               type="text"
               name="username"
               placeholder="Имя"
+              minlength="2"
+              maxlength="40"
               required
             />
             <span class="name-field-error popup__input-error"></span>
@@ -68,6 +70,8 @@
               type="text"
               name="description"
               placeholder="Описание"
+              minlength="2"
+              maxlength="200"
               required
             />
             <span class="description-field-error popup__input-error"></span>
@@ -79,7 +83,7 @@
     </div>
     <div class="popup popup_type_card-add">
       <div class="popup__container">
-        <form class="popup__form popup__form_add-card" method="post" name="add-card">
+        <form class="popup__form popup__form_add-card" method="post" name="add-card" novalidate>
           <h2 class="popup__heading">Новое место</h2>
           <div class="popup__input-wrapper">
             <input
@@ -88,6 +92,8 @@
               type="text"
               name="card-heading"
               placeholder="Название"
+              minlength="2"
+              maxlength="30"
               required
             />
             <span class="card-heading-field-error popup__input-error"></span>
@@ -130,5 +136,6 @@
 
     <script src="./scripts/initial-cards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
