@@ -1,5 +1,6 @@
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form_edit-profile');
+const popupEditProfileInputs = Array.from(popupEditProfile.querySelectorAll('.popup__text-input'));
 const inputProfileName = popupEditProfileForm.querySelector('.popup__text-input_type_username');
 const inputProfileDescription = popupEditProfileForm.querySelector(
   '.popup__text-input_type_description'
@@ -88,7 +89,7 @@ function openProfilePopup() {
   openPopup(popupEditProfile);
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  toggleButtonState(popupEditProfileForm, editProfileSaveButton);
+  toggleButtonState(popupEditProfileInputs, editProfileSaveButton);
 }
 
 // popup edit-profile save-button
