@@ -4,6 +4,7 @@ const inputProfileName = popupEditProfileForm.querySelector('.popup__text-input_
 const inputProfileDescription = popupEditProfileForm.querySelector(
   '.popup__text-input_type_description'
 );
+const editProfileSaveButton = popupEditProfileForm.querySelector('.popup__save-button');
 
 const popupAddCard = document.querySelector('.popup_type_card-add');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
@@ -24,7 +25,7 @@ const cardsList = document.querySelector('.cards__list');
 
 // create card from html template
 
-function createCard({link, name}) {
+function createCard({ link, name }) {
   const cardTemplate = document.querySelector('.template-card').content;
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = card.querySelector('.card__image');
@@ -37,7 +38,7 @@ function createCard({link, name}) {
   cardHeading.textContent = name;
 
   cardImage.addEventListener('click', () => {
-    viewImageHandler({link, name})
+    viewImageHandler({ link, name });
   });
   cardLikeButton.addEventListener('click', handleLikeCard);
   cardDeleteButton.addEventListener('click', handleDeleteCard);
@@ -75,6 +76,7 @@ function openProfilePopup() {
   openPopup(popupEditProfile);
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
+  toggleButtonState(popupEditProfileForm, editProfileSaveButton);
 }
 
 // popup edit-profile save-button
@@ -108,7 +110,7 @@ function openNewCardPopup(evt) {
 
 // card's image
 
-function viewImageHandler({link, name}) {
+function viewImageHandler({ link, name }) {
   popupImage.src = link;
   popupImage.alt = name;
   popupImageCaption.textContent = name;
