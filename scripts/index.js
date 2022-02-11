@@ -62,6 +62,18 @@ function renderCard(cardValues) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+  popup.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      closePopup(popup);
+    }
+  });
+
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popup);
+    }
+  });
 }
 
 // close popup
