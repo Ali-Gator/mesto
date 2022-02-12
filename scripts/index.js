@@ -2,7 +2,9 @@ const popups = document.querySelectorAll('.popup');
 
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form_edit-profile');
-const popupEditProfileInputs = Array.from(popupEditProfileForm.querySelectorAll('.popup__text-input'));
+const popupEditProfileInputs = Array.from(
+  popupEditProfileForm.querySelectorAll('.popup__text-input')
+);
 const inputProfileName = popupEditProfileForm.querySelector('.popup__text-input_type_username');
 const inputProfileDescription = popupEditProfileForm.querySelector(
   '.popup__text-input_type_description'
@@ -15,7 +17,6 @@ const popupAddCardInputs = Array.from(popupAddCardForm.querySelectorAll('.popup_
 const inputCardHeading = popupAddCardForm.querySelector('.popup__text-input_type_card-heading');
 const inputCardImageLink = popupAddCardForm.querySelector('.popup__text-input_type_image-link');
 const addCardSaveButton = popupAddCardForm.querySelector('.popup__save-button');
-
 
 const popupViewPicture = document.querySelector('.popup_type_picture');
 const popupImageContainer = popupViewPicture.querySelector('.popup__image-container');
@@ -67,9 +68,8 @@ function renderCard(cardValues) {
 // close popup by Esc
 
 function closeByEsc(evt) {
-  const popupOpened = document.querySelector('.popup_opened');
-
   if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
   }
 }
