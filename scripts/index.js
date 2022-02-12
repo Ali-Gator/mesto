@@ -1,6 +1,8 @@
+const popups = document.querySelectorAll('.popup');
+
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form_edit-profile');
-const popupEditProfileInputs = Array.from(popupEditProfile.querySelectorAll('.popup__text-input'));
+const popupEditProfileInputs = Array.from(popupEditProfileForm.querySelectorAll('.popup__text-input'));
 const inputProfileName = popupEditProfileForm.querySelector('.popup__text-input_type_username');
 const inputProfileDescription = popupEditProfileForm.querySelector(
   '.popup__text-input_type_description'
@@ -9,25 +11,28 @@ const editProfileSaveButton = popupEditProfileForm.querySelector('.popup__save-b
 
 const popupAddCard = document.querySelector('.popup_type_card-add');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
+const popupAddCardInputs = Array.from(popupAddCardForm.querySelectorAll('.popup__text-input'));
 const inputCardHeading = popupAddCardForm.querySelector('.popup__text-input_type_card-heading');
 const inputCardImageLink = popupAddCardForm.querySelector('.popup__text-input_type_image-link');
+const addCardSaveButton = popupAddCardForm.querySelector('.popup__save-button');
+
 
 const popupViewPicture = document.querySelector('.popup_type_picture');
 const popupImageContainer = popupViewPicture.querySelector('.popup__image-container');
 const popupImage = popupImageContainer.querySelector('.popup__image');
 const popupImageCaption = popupImageContainer.querySelector('.popup__image-caption');
 
-const popupCloseButtons = document.querySelectorAll('.popup__close-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const cardsList = document.querySelector('.cards__list');
 
+const cardTemplate = document.querySelector('.template-card').content;
+
 // create card from html template
 
 function createCard({ link, name }) {
-  const cardTemplate = document.querySelector('.template-card').content;
   const card = cardTemplate.querySelector('.card').cloneNode(true);
   const cardImage = card.querySelector('.card__image');
   const cardHeading = card.querySelector('.card__text');
@@ -59,28 +64,28 @@ function renderCard(cardValues) {
   }
 }
 
+// close popup by Esc
+
+function closeByEsc(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+
+  if (evt.key === 'Escape') {
+    closePopup(popupOpened);
+  }
+}
+
 // open popup
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-
-  popup.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popup);
-    }
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
+  document.addEventListener('keydown', closeByEsc);
 }
 
 // close popup
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 }
 
 // profile edit-button
@@ -105,6 +110,7 @@ function handleProfileSubmit(evt) {
 
 function addButtonHandler() {
   openPopup(popupAddCard);
+  toggleButtonState(popupAddCardInputs, addCardSaveButton);
 }
 
 // popup add-card save-button
@@ -145,12 +151,17 @@ function handleDeleteCard(evt) {
 
 renderCard(initialCards);
 
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (
+      evt.target.classList.contains('popup_opened') ||
+      evt.target.classList.contains('popup__close-button')
+    ) {
+      closePopup(popup);
+    }
+  });
+});
 profileEditButton.addEventListener('click', openProfilePopup);
 popupEditProfileForm.addEventListener('submit', handleProfileSubmit);
 profileAddButton.addEventListener('click', addButtonHandler);
 popupAddCardForm.addEventListener('submit', openNewCardPopup);
-popupCloseButtons.forEach((elem) => {
-  elem.addEventListener('click', (evt) => {
-    closePopup(evt.target.closest('.popup'));
-  });
-});
