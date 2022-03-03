@@ -64,3 +64,12 @@ enableValidation({
   inputErrorClass: 'popup__text-input_type_error',
   errorClass: 'popup__input-error_active',
 });
+
+
+// Добавть карточку:
+//
+// Кнопка активна сразу при запуске
+//
+// Профайл:
+//
+// удалив поле и закрыв, а потом снова открыв: поле появляется, но кнопка все равно не авктивнаVa

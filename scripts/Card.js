@@ -11,18 +11,15 @@ class Card {
       .content
       .querySelector('.card')
       .cloneNode(true);
-
     return cardElement;
   }
 
   generateCard() {
     this._card = this._getTemplate();
     this._setEventListeners();
-
     this._card.querySelector('.card__image').src = this._link;
     this._card.querySelector('.card__image').alt = this._name;
     this._card.querySelector('.card__text').textContent = this._name;
-
     return this._card;
   }
 
@@ -39,7 +36,6 @@ class Card {
     popupTypePicture.querySelector('.popup__image').src = this._link;
     popupTypePicture.querySelector('.popup__image').alt = this._name;
     popupTypePicture.querySelector('.popup__image-caption').textContent = this._name;
-
     this._openPopup(popupTypePicture);
   }
 
