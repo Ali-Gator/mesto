@@ -77,7 +77,7 @@ function openProfilePopup() {
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
   validationFormProfile.resetInputsErrors();
-  validationFormProfile.enableValidation();
+  validationFormProfile.toggleButtonState();
 }
 
 // edit-profile save-button
@@ -91,7 +91,6 @@ function handleProfileSubmit(evt) {
 // add-card button
 function handleAddButton() {
   openPopup(popupAddCard);
-  validationFormAddCard.enableValidation();
 }
 
 // add-card save-button
@@ -106,6 +105,8 @@ function openNewCardPopup(evt) {
 }
 
 renderCard(initialCards);
+validationFormProfile.enableValidation();
+validationFormAddCard.enableValidation();
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
