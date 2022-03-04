@@ -3,6 +3,9 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
 const popups = document.querySelectorAll('.popup');
+const popupTypePicture = document.querySelector('.popup_type_picture');
+const popupPictureImage = popupTypePicture.querySelector('.popup__image');
+const popupPictureCaption = popupTypePicture.querySelector('.popup__image-caption')
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form_edit-profile');
 const popupEditProfileInputs = Array.from(popupEditProfileForm.querySelectorAll('.popup__text-input'));
@@ -27,16 +30,27 @@ const formParameters = {
 };
 const forms = Array.from(document.querySelectorAll('.popup__form'));
 
+// picture popup
+function handleImageClick(name, link) {
+  popupPictureImage.src = link;
+  popupPictureImage.alt = name;
+  popupPictureCaption.textContent = name;
+  openPopup(popupTypePicture);
+}
+
+function getCard(data) {
+  const cardClass = new Card(data, '.template-card', handleImageClick);
+  return cardClass.generateCard();
+}
+
 function renderCard(cardValues) {
   const cardsList = document.querySelector('.cards__list');
   if (Array.isArray(cardValues)) {
     cardValues.forEach((data) => {
-      const card = new Card(data, '.template-card');
-      cardsList.append(card.generateCard());
+      cardsList.append(getCard(data));
     });
   } else {
-    const card = new Card(cardValues, '.template-card');
-    cardsList.prepend(card.generateCard());
+    cardsList.prepend(getCard(cardValues));
   }
 }
 
@@ -45,6 +59,7 @@ function closeByEsc(evt) {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
+    document.removeEventListener('keydown', closeByEsc);
   }
 }
 
@@ -57,16 +72,12 @@ function openPopup(popup) {
 // close popup
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
 }
 
-// change submit button state when open popup
-function toggleButton(inputs, submitButton) {
-  if (inputs.some(input => !input.validity.valid)) {
-    submitButton.setAttribute('disabled', true);
-  } else {
-    submitButton.removeAttribute('disabled');
-  }
+// js validation
+function validation(popup) {
+  const validator = new FormValidator(formParameters, popup);
+  validator.enableValidation();
 }
 
 // profile edit-button
@@ -74,7 +85,7 @@ function openProfilePopup() {
   openPopup(popupEditProfile);
   inputProfileName.value = profileName.textContent;
   inputProfileDescription.value = profileDescription.textContent;
-  toggleButton(popupEditProfileInputs, editProfileSaveButton);
+  validation(popupEditProfile);
 }
 
 // edit-profile save-button
@@ -88,7 +99,7 @@ function handleProfileSubmit(evt) {
 // add-card button
 function handleAddButton() {
   openPopup(popupAddCard);
-  toggleButton(popupAddCardInputs, addCardSaveButton);
+  validation(popupAddCard);
 }
 
 // add-card save-button
@@ -103,10 +114,6 @@ function openNewCardPopup(evt) {
 }
 
 renderCard(initialCards);
-forms.forEach((form) => {
-  const validator = new FormValidator(formParameters, form);
-  validator.enableValidation();
-});
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
@@ -118,5 +125,4 @@ profileEditButton.addEventListener('click', openProfilePopup);
 popupEditProfileForm.addEventListener('submit', handleProfileSubmit);
 profileAddButton.addEventListener('click', handleAddButton);
 popupAddCardForm.addEventListener('submit', openNewCardPopup);
-
 
