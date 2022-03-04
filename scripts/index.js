@@ -8,16 +8,12 @@ const popupPictureImage = popupTypePicture.querySelector('.popup__image');
 const popupPictureCaption = popupTypePicture.querySelector('.popup__image-caption')
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const popupEditProfileForm = popupEditProfile.querySelector('.popup__form_edit-profile');
-const popupEditProfileInputs = Array.from(popupEditProfileForm.querySelectorAll('.popup__text-input'));
 const inputProfileName = popupEditProfileForm.querySelector('.popup__text-input_type_username');
 const inputProfileDescription = popupEditProfileForm.querySelector('.popup__text-input_type_description');
-const editProfileSaveButton = popupEditProfileForm.querySelector('.popup__save-button');
 const popupAddCard = document.querySelector('.popup_type_card-add');
 const popupAddCardForm = popupAddCard.querySelector('.popup__form_add-card');
-const popupAddCardInputs = Array.from(popupAddCardForm.querySelectorAll('.popup__text-input'));
 const inputCardHeading = popupAddCardForm.querySelector('.popup__text-input_type_card-heading');
 const inputCardImageLink = popupAddCardForm.querySelector('.popup__text-input_type_image-link');
-const addCardSaveButton = popupAddCardForm.querySelector('.popup__save-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
@@ -28,7 +24,6 @@ const formParameters = {
   inputErrorClass: 'popup__text-input_type_error',
   errorClass: 'popup__input-error_active',
 };
-const forms = Array.from(document.querySelectorAll('.popup__form'));
 
 // picture popup
 function handleImageClick(name, link) {
