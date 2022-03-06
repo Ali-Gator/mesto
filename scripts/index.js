@@ -101,6 +101,7 @@ function openNewCardPopup(evt) {
   };
   renderCard(userCard);
   popupAddCardForm.reset();
+  validationFormAddCard.toggleButtonState();
   closePopup(popupAddCard);
 }
 
