@@ -1,9 +1,9 @@
 class Card {
-  constructor(cardItem, cardSelector, handleImageClick) {
+  constructor(cardItem, cardSelector, handleCardClick) {
     this._name = cardItem.name;
     this._link = cardItem.link;
     this._cardSelector = cardSelector;
-    this._handleImageClick = handleImageClick;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -27,7 +27,7 @@ class Card {
 
   _setEventListeners() {
     this._card.querySelector('.card__image').addEventListener('click', () => {
-      this._handleImageClick(this._name, this._link);
+      this._handleCardClick({name: this._name, link: this._link});
     });
     this._card.querySelector('.card__like-icon').addEventListener('click', this._handleLikeCard);
     this._card.querySelector('.card__delete-icon').addEventListener('click', () => {
