@@ -1,6 +1,7 @@
 import initialCards from './initialCards.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
+import Section from "./Section.js";
 
 const popups = document.querySelectorAll('.popup');
 const popupTypePicture = document.querySelector('.popup_type_picture');
@@ -18,7 +19,6 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
-const cardsList = document.querySelector('.cards__list');
 const formParameters = {
   inputSelector: '.popup__text-input',
   submitButtonSelector: '.popup__save-button',
@@ -36,20 +36,16 @@ function handleImageClick(name, link) {
   openPopup(popupTypePicture);
 }
 
-function getCard(data) {
-  const cardClass = new Card(data, '.template-card', handleImageClick);
-  return cardClass.generateCard();
-}
-
-function renderCard(cardValues) {
-  if (Array.isArray(cardValues)) {
-    cardValues.forEach((data) => {
-      cardsList.append(getCard(data));
-    });
-  } else {
-    cardsList.prepend(getCard(cardValues));
-  }
-}
+const cardsList = new Section({
+    items: initialCards,
+    renderer: (cardItem) => {
+      const card = new Card(cardItem, '.template-card', handleImageClick);
+      const cardElement = card.generateCard();
+      cardsList.addItem(cardElement);
+    }
+  },
+  '.cards__list');
+cardsList.renderItems();
 
 // close popup by Esc
 function closeByEsc(evt) {
@@ -96,16 +92,18 @@ function handleAddButton() {
 // add-card save-button
 function openNewCardPopup(evt) {
   evt.preventDefault();
-  const userCard = {
-    name: inputCardHeading.value, link: inputCardImageLink.value,
-  };
-  renderCard(userCard);
+  const userCard = new Card({
+    name: inputCardHeading.value,
+    link: inputCardImageLink.value,
+  }, '.template-card', handleImageClick);
+  const userCardEl = userCard.generateCard();
+  cardsList.addItem(userCardEl);
   popupAddCardForm.reset();
   validationFormAddCard.toggleButtonState();
   closePopup(popupAddCard);
 }
 
-renderCard(initialCards);
+// renderCard(initialCards);
 validationFormProfile.enableValidation();
 validationFormAddCard.enableValidation();
 popups.forEach((popup) => {
