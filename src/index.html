@@ -9,21 +9,20 @@
   />
   <meta name="keywords" content="фотографии, хранение, медиа"/>
   <meta name="author" content="Олег Гордиенов"/>
-  <link rel="stylesheet" href="./pages/index.css"/>
   <title>Mesto</title>
 </head>
 <body class="page">
 <!-- header -->
 <header class="page__header header">
-  <img class="header__logo" src="./images/header-logo-white.svg" alt="Логотип Место"/>
+  <img class="header__logo" src="<%=require('./images/header-logo-white.svg')%>" alt="Логотип Место"/>
 </header>
 <main>
   <!-- profile -->
   <section class="page__profile profile">
     <img
       class="profile__image"
-      src="./images/custo.jpg"
-      srcset="./images/custo@2x.jpg 2x"
+      src="<%=require('./images/custo.jpg')%>"
+      srcset="<%=require('./images/custo@2x.jpg')%> 2x"
       alt="Жак-Ив Кусто в красной шапке"
     />
     <div class="profile__name-wrapper">
@@ -134,6 +133,5 @@
     <button class="card__delete-icon" type="button"></button>
   </li>
 </template>
-<script type="module" src="./scripts/index.js"></script>
 </body>
 </html>
