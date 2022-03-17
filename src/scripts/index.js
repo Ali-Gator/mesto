@@ -47,6 +47,7 @@ function handleEditProfileClick() {
 }
 
 function handleAddNewCardClick() {
+  validationFormAddCard.resetInputsErrors();
   validationFormAddCard.toggleButtonState();
   newCardPopup.open();
 }
