@@ -10,17 +10,17 @@ class Popup {
 
   close() {
     this._element.classList.remove('popup_opened');
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose = (evt) => {
     if (evt.key === 'Escape') {
       this.close();
-      document.removeEventListener('keydown', this._handleEscClose);
     }
   }
 
   setEventListeners() {
-    this._element.addEventListener('click', (evt) => {
+    this._element.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button')) {
         this.close();
       }

@@ -1,18 +1,19 @@
 class Section {
-  constructor({items, renderer}, containerSelector) {
+  constructor({items, itemCreator}, containerSelector) {
     this._items = items;
-    this._renderer = renderer;
-    this._containerSelector = containerSelector;
+    this._creator = itemCreator;
+    this._containerElement = document.querySelector(containerSelector);
   }
 
   renderItems() {
     this._items.forEach(item => {
-      this._renderer(item);
+      this.addItem(item);
     });
   }
 
-  addItem(el) {
-    document.querySelector(this._containerSelector).prepend(el);
+  addItem(item) {
+    const card = this._creator(item);
+    this._containerElement.prepend(card);
   }
 }
 
