@@ -63,15 +63,17 @@ function handleAddNewCardClick() {
 }
 
 function handleProfileSubmit(inputValues) {
-  // userInfo.setUserInfo({name: inputValues.username, description: inputValues.description});
-  api.editProfile({name: inputValues.username, about: inputValues.description})
+  api.patchProfile({name: inputValues.username, about: inputValues.description})
     .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
     .catch(err => console.log(err));
   profilePopup.close();
 }
 
 function handleNewCardSubmit(inputValues) {
-  cardsList.addItem({name: inputValues['card-heading'], link: inputValues['image-link']});
+  // cardsList.addItem({name: inputValues['card-heading'], link: inputValues['image-link']});
+  api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
+    .then(card => cardsList.addItem(card))
+    .catch(err => console.log(err));
   newCardPopup.close();
 }
 
