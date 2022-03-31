@@ -2,6 +2,7 @@ class Card {
   constructor(cardItem, cardSelector, handleCardClick) {
     this._name = cardItem.name;
     this._link = cardItem.link;
+    this._likes = cardItem.likes;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }
@@ -22,6 +23,7 @@ class Card {
     cardImage.src = this._link;
     cardImage.alt = this._name;
     this._card.querySelector('.card__text').textContent = this._name;
+    this._card.querySelector('.card__like-counter').textContent = this._likes.length;
     return this._card;
   }
 
