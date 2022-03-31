@@ -15,6 +15,7 @@ const cardAddButton = document.querySelector('.profile__add-button');
 const imagePopup = new PopupWithImage('.popup_type_picture');
 const profilePopup = new PopupWithForm('.popup_type_profile', handleProfileSubmit);
 const newCardPopup = new PopupWithForm('.popup_type_card-add', handleNewCardSubmit);
+const confirmPopup = new PopupWithForm('.popup_type_confirm', handleConfirmSubmit);
 const cardsList = new Section(createCard, '.cards__list');
 const userInfo = new UserInfo({
   profileSelector: '.profile__name',
@@ -70,11 +71,14 @@ function handleProfileSubmit(inputValues) {
 }
 
 function handleNewCardSubmit(inputValues) {
-  // cardsList.addItem({name: inputValues['card-heading'], link: inputValues['image-link']});
   api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
     .then(card => cardsList.addItem(card))
     .catch(err => console.log(err));
   newCardPopup.close();
+}
+
+function handleConfirmSubmit() {
+  confirmPopup.close();
 }
 
 imagePopup.setEventListeners();
