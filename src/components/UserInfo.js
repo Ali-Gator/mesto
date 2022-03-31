@@ -17,7 +17,6 @@ class UserInfo {
     this._profileNameEl.textContent = name;
     this._descriptionEl.textContent = description;
     this._imageEl.src = avatar;
-    console.log(avatar);
   }
 
 }

@@ -15,10 +15,12 @@ const cardAddButton = document.querySelector('.profile__add-button');
 const imagePopup = new PopupWithImage('.popup_type_picture');
 const profilePopup = new PopupWithForm('.popup_type_profile', handleProfileSubmit);
 const newCardPopup = new PopupWithForm('.popup_type_card-add', handleNewCardSubmit);
-const cardsList = new Section({
-  items: initialCards, itemCreator: createCard
-}, '.cards__list');
-const userInfo = new UserInfo({profileSelector: '.profile__name', descriptionSelector: '.profile__description', avatarSelector: '.profile__image'});
+const cardsList = new Section(createCard, '.cards__list');
+const userInfo = new UserInfo({
+  profileSelector: '.profile__name',
+  descriptionSelector: '.profile__description',
+  avatarSelector: '.profile__image'
+});
 const formValidators = {};
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
@@ -76,11 +78,12 @@ newCardPopup.setEventListeners();
 profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
-
 api.getInitialUser()
   .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
-
-cardsList.renderItems();
+  .catch(err => console.log(err));
+api.getInitialCards()
+  .then(cards => cardsList.renderItems(cards))
+  .catch(err => console.log(err));
 
 
 

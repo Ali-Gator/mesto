@@ -10,11 +10,16 @@ class Api {
       headers: this.headers
     })
       .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
-     // .then(user => user)
       .catch(err => console.log(err));
   }
 
   getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: 'GET',
+      headers: this.headers
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .catch(err => console.log(err));
   }
 }
 
