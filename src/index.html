@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta
-    name="description"
-    content="Интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки"
-  />
+  <meta name="description"
+        content="Интерактивная страница, куда можно добавлять фотографии, удалять их и ставить лайки"/>
   <meta name="keywords" content="фотографии, хранение, медиа"/>
   <meta name="author" content="Олег Гордиенов"/>
   <title>Mesto</title>
@@ -19,12 +17,7 @@
 <main>
   <!-- profile -->
   <section class="page__profile profile">
-    <img
-      class="profile__image"
-      src="<%=require('./images/custo.jpg')%>"
-      srcset="<%=require('./images/custo@2x.jpg')%> 2x"
-      alt="Жак-Ив Кусто в красной шапке"
-    />
+    <img class="profile__image" src="" alt="Изображение пользователя"/>
     <div class="profile__name-wrapper">
       <h1 class="profile__name">Жак-Ив Кусто</h1>
       <button class="profile__edit-button" type="button"></button>
@@ -32,7 +25,6 @@
     <p class="profile__description">Исследователь океана</p>
     <button class="profile__add-button" type="button"></button>
   </section>
-
   <!-- cards -->
   <section class="page__cards cards">
     <ul class="cards__list">
@@ -50,29 +42,13 @@
     <form class="popup__form popup__form_edit-profile" method="post" name="edit-profile" novalidate>
       <h2 class="popup__heading">Редактировать профиль</h2>
       <div class="popup__input-wrapper">
-        <input
-          class="popup__text-input popup__text-input_type_username"
-          id="name-field"
-          type="text"
-          name="username"
-          placeholder="Имя"
-          minlength="2"
-          maxlength="40"
-          required
-        />
+        <input class="popup__text-input popup__text-input_type_username" id="name-field" type="text" name="username"
+               placeholder="Имя" minlength="2" maxlength="40" required/>
         <span class="name-field-error popup__input-error"></span>
       </div>
       <div class="popup__input-wrapper">
-        <input
-          class="popup__text-input popup__text-input_type_description"
-          id="description-field"
-          type="text"
-          name="description"
-          placeholder="Описание"
-          minlength="2"
-          maxlength="200"
-          required
-        />
+        <input class="popup__text-input popup__text-input_type_description" id="description-field" type="text"
+               name="description" placeholder="Описание" minlength="2" maxlength="200" required/>
         <span class="description-field-error popup__input-error"></span>
       </div>
       <button class="popup__save-button" type="submit">Сохранить</button>
@@ -85,27 +61,13 @@
     <form class="popup__form popup__form_add-card" method="post" name="add-card" novalidate>
       <h2 class="popup__heading">Новое место</h2>
       <div class="popup__input-wrapper">
-        <input
-          class="popup__text-input popup__text-input_type_card-heading"
-          id="card-heading-field"
-          type="text"
-          name="card-heading"
-          placeholder="Название"
-          minlength="2"
-          maxlength="30"
-          required
-        />
+        <input class="popup__text-input popup__text-input_type_card-heading" id="card-heading-field" type="text"
+               name="card-heading" placeholder="Название" minlength="2" maxlength="30" required/>
         <span class="card-heading-field-error popup__input-error"></span>
       </div>
       <div class="popup__input-wrapper">
-        <input
-          class="popup__text-input popup__text-input_type_image-link"
-          id="image-link-field"
-          type="url"
-          name="image-link"
-          placeholder="Ссылка на картинку"
-          required
-        />
+        <input class="popup__text-input popup__text-input_type_image-link" id="image-link-field" type="url"
+               name="image-link" placeholder="Ссылка на картинку" required/>
         <span class="image-link-field-error popup__input-error"></span>
       </div>
       <button class="popup__save-button" type="submit">Сохранить</button>
