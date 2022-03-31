@@ -63,7 +63,10 @@ function handleAddNewCardClick() {
 }
 
 function handleProfileSubmit(inputValues) {
-  userInfo.setUserInfo({name: inputValues.username, description: inputValues.description});
+  // userInfo.setUserInfo({name: inputValues.username, description: inputValues.description});
+  api.editProfile({name: inputValues.username, about: inputValues.description})
+    .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
+    .catch(err => console.log(err));
   profilePopup.close();
 }
 
