@@ -46,18 +46,28 @@ function handleDeleteCard(card) {
   confirmPopup.cardToDelete = card;
 }
 
-function handleConfirmSubmit(cardToDelete) {
-  cardToDelete.remove();
-  api.deleteCard(cardToDelete.id);
-  confirmPopup.close();
-}
 function handleCardClick({name, link}) {
   imagePopup.open({name: name, link: link});
 }
 
-function createCard(cardItem) {
-  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard);
-  return card.generateCard();
+function handleLikeCard(card) {
+  const likeElement = card.querySelector('.card__like-icon');
+  if (likeElement.classList.contains('card__like-icon_pressed')) {
+    likeElement.classList.remove('card__like-icon_pressed');
+    api.deleteLike(card.id)
+      .then(obj => card.querySelector('.card__like-counter').textContent = obj.likes.length > 0 ? obj.likes.length : '')
+      .catch(err => console.log(err));
+  } else {
+    likeElement.classList.add('card__like-icon_pressed');
+    api.putLike(card.id)
+      .then(obj => card.querySelector('.card__like-counter').textContent = obj.likes.length)
+      .catch(err => console.log(err));
+  }
+}
+
+function createCard(cardItem, isOwn, ownUserId) {
+  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard);
+  return card.generateCard(isOwn, ownUserId);
 }
 
 function handleEditProfileClick() {
@@ -87,6 +97,12 @@ function handleNewCardSubmit(inputValues) {
   newCardPopup.close();
 }
 
+function handleConfirmSubmit(cardToDelete) {
+  cardToDelete.remove();
+  api.deleteCard(cardToDelete.id);
+  confirmPopup.close();
+}
+
 imagePopup.setEventListeners();
 profilePopup.setEventListeners();
 newCardPopup.setEventListeners();
@@ -95,10 +111,17 @@ profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
 api.getInitialUser()
-  .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
-  .catch(err => console.log(err));
-api.getInitialCards()
-  .then(cards => cardsList.renderItems(cards, false))
+  .then(user => userInfo.setUserInfo({
+    name: user.name,
+    description: user.about,
+    avatar: user.avatar,
+    ownUserId: user._id
+  }))
+  .then(() => api.getInitialCards())
+  .then(cards => {
+    console.log(cards)
+    cardsList.renderItems(cards, false, userInfo.getUserInfo().id)
+  })
   .catch(err => console.log(err));
 
 

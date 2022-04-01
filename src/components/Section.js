@@ -4,17 +4,14 @@ class Section {
     this._containerElement = document.querySelector(containerSelector);
   }
 
-  renderItems(items, isOwn) {
+  renderItems(items, isOwn, ownUserId) {
     items.forEach(item => {
-      this.addItem(item, isOwn);
+      this.addItem(item, isOwn, ownUserId);
     });
   }
 
-  addItem(item, isOwn) {
-    const card = this._creator(item);
-    if (isOwn) {
-      card.querySelector('.card__delete-icon').classList.add('card__delete-icon_active');
-    }
+  addItem(item, isOwn, ownUserId) {
+    const card = this._creator(item, isOwn, ownUserId);
     this._containerElement.prepend(card);
   }
 }
