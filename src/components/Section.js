@@ -4,14 +4,14 @@ class Section {
     this._containerElement = document.querySelector(containerSelector);
   }
 
-  renderItems(items, isOwn, ownUserId) {
+  renderItems(items, ownUserId) {
     items.forEach(item => {
-      this.addItem(item, isOwn, ownUserId);
+      this.addItem(item, ownUserId);
     });
   }
 
-  addItem(item, isOwn, ownUserId) {
-    const card = this._creator(item, isOwn, ownUserId);
+  addItem(item, ownUserId) {
+    const card = this._creator(item, ownUserId);
     this._containerElement.prepend(card);
   }
 }

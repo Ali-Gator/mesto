@@ -4,6 +4,7 @@ class Card {
     this._link = cardItem.link;
     this._likes = cardItem.likes;
     this._cardId = cardItem._id;
+    this._ownerId = cardItem.owner._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
     this._handleDeleteCard = handleDeleteCard;
@@ -19,14 +20,14 @@ class Card {
     return cardElement;
   }
 
-  generateCard(isOwn, ownUserId) {
+  generateCard(ownUserId) {
     this._card = this._getTemplate();
     this._setEventListeners();
     this._card.id = this._cardId;
     const cardImage = this._card.querySelector('.card__image');
     cardImage.src = this._link;
     cardImage.alt = this._name;
-    if (isOwn) {
+    if (this._ownerId === ownUserId) {
       this._card.querySelector('.card__delete-icon').classList.add('card__delete-icon_active');
     }
     this._card.querySelector('.card__text').textContent = this._name;

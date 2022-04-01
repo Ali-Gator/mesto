@@ -65,9 +65,9 @@ function handleLikeCard(card) {
   }
 }
 
-function createCard(cardItem, isOwn, ownUserId) {
+function createCard(cardItem, ownUserId) {
   const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard);
-  return card.generateCard(isOwn, ownUserId);
+  return card.generateCard(ownUserId);
 }
 
 function handleEditProfileClick() {
@@ -92,7 +92,7 @@ function handleProfileSubmit(inputValues) {
 
 function handleNewCardSubmit(inputValues) {
   api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
-    .then(card => cardsList.addItem(card, true))
+    .then(card => cardsList.addItem(card, userInfo.getUserInfo().id))
     .catch(err => console.log(err));
   newCardPopup.close();
 }
@@ -119,8 +119,7 @@ api.getInitialUser()
   }))
   .then(() => api.getInitialCards())
   .then(cards => {
-    console.log(cards)
-    cardsList.renderItems(cards, false, userInfo.getUserInfo().id)
+    cardsList.renderItems(cards, userInfo.getUserInfo().id)
   })
   .catch(err => console.log(err));
 
