@@ -16,11 +16,23 @@ class PopupWithForm extends Popup {
     return this._formValues;
   }
 
+  set cardToDelete(card) {
+    return this._cardToDelete = card;
+  }
+
+  get cardToDelete() {
+    return this._cardToDelete;
+  }
+
   setEventListeners() {
     super.setEventListeners();
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._handleSubmit(this._getInputValues());
+      if (this._inputList.length > 0) {
+        this._handleSubmit(this._getInputValues());
+      } else {
+        this._handleSubmit(this.cardToDelete);
+      }
     });
   }
 

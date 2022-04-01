@@ -41,13 +41,23 @@ function enableValidation(config) {
   });
 }
 
-function createCard(cardItem) {
-  const card = new Card(cardItem, '.template-card', handleCardClick);
-  return card.generateCard();
+function handleDeleteCard(card) {
+  confirmPopup.open();
+  confirmPopup.cardToDelete = card;
 }
 
+function handleConfirmSubmit(cardToDelete) {
+  cardToDelete.remove();
+  api.deleteCard(cardToDelete.id);
+  confirmPopup.close();
+}
 function handleCardClick({name, link}) {
   imagePopup.open({name: name, link: link});
+}
+
+function createCard(cardItem) {
+  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard);
+  return card.generateCard();
 }
 
 function handleEditProfileClick() {
@@ -72,18 +82,15 @@ function handleProfileSubmit(inputValues) {
 
 function handleNewCardSubmit(inputValues) {
   api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
-    .then(card => cardsList.addItem(card))
+    .then(card => cardsList.addItem(card, true))
     .catch(err => console.log(err));
   newCardPopup.close();
-}
-
-function handleConfirmSubmit() {
-  confirmPopup.close();
 }
 
 imagePopup.setEventListeners();
 profilePopup.setEventListeners();
 newCardPopup.setEventListeners();
+confirmPopup.setEventListeners();
 profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
@@ -91,7 +98,7 @@ api.getInitialUser()
   .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
   .catch(err => console.log(err));
 api.getInitialCards()
-  .then(cards => cardsList.renderItems(cards))
+  .then(cards => cardsList.renderItems(cards, false))
   .catch(err => console.log(err));
 
 

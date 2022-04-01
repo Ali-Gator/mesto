@@ -41,6 +41,15 @@ class Api {
       .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
       .catch(err => console.log(err));
   }
+
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this.headers
+    })
+      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .catch(err => console.log(err));
+  }
 }
 
 export default Api;
