@@ -10,9 +10,11 @@ import Api from '../components/Api.js';
 
 const profileNameInput = document.querySelector('.popup__text-input_type_username');
 const profileDescriptionInput = document.querySelector('.popup__text-input_type_description');
+const changeAvatarButton = document.querySelector('.profile__image-button');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const cardAddButton = document.querySelector('.profile__add-button');
 const imagePopup = new PopupWithImage('.popup_type_picture');
+const avatarPopup = new PopupWithForm('.popup_type_avatar', handleAvatarSubmit);
 const profilePopup = new PopupWithForm('.popup_type_profile', handleProfileSubmit);
 const newCardPopup = new PopupWithForm('.popup_type_card-add', handleNewCardSubmit);
 const confirmPopup = new PopupWithForm('.popup_type_confirm', handleConfirmSubmit);
@@ -70,6 +72,11 @@ function createCard(cardItem, ownUserId) {
   return card.generateCard(ownUserId);
 }
 
+function handleChangeAvatarClick() {
+  formValidators['avatar'].resetValidation();
+  avatarPopup.open();
+}
+
 function handleEditProfileClick() {
   const currentUser = userInfo.getUserInfo();
   profileNameInput.value = currentUser.name;
@@ -81,6 +88,13 @@ function handleEditProfileClick() {
 function handleAddNewCardClick() {
   formValidators['add-card'].resetValidation();
   newCardPopup.open();
+}
+// дописать обновление аватара после отправки
+function handleAvatarSubmit(inputValue) {
+  api.patchAvatar(inputValue['avatar-link'])
+    .then(obj => console.log(obj))
+    .catch(err => console.log(err));
+  avatarPopup.close();
 }
 
 function handleProfileSubmit(inputValues) {
@@ -103,10 +117,12 @@ function handleConfirmSubmit(cardToDelete) {
   confirmPopup.close();
 }
 
+avatarPopup.setEventListeners();
 imagePopup.setEventListeners();
 profilePopup.setEventListeners();
 newCardPopup.setEventListeners();
 confirmPopup.setEventListeners();
+changeAvatarButton.addEventListener('click', handleChangeAvatarClick);
 profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
