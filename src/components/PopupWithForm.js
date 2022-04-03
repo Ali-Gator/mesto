@@ -6,6 +6,7 @@ class PopupWithForm extends Popup {
     this._handleSubmit = handleSubmit;
     this._inputList = this._element.querySelectorAll('.popup__text-input');
     this._formElement = this._element.querySelector('.popup__form');
+    this._submitButton = this._formElement.querySelector('.popup__save-button');
   }
 
   _getInputValues() {
@@ -29,6 +30,7 @@ class PopupWithForm extends Popup {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       if (this._inputList.length > 0) {
+        this._submitButton.textContent = 'Сохранение...';
         this._handleSubmit(this._getInputValues());
       } else {
         this._handleSubmit(this.cardToDelete);

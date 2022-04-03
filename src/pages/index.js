@@ -93,22 +93,22 @@ function handleAddNewCardClick() {
 function handleAvatarSubmit(inputValue) {
   api.patchAvatar(inputValue['avatar-link'])
     .then(user => userInfo.setUserInfo({avatar: user.avatar}))
-    .catch(err => console.log(err));
-  avatarPopup.close();
+    .catch(err => console.log(err))
+    .finally(() => avatarPopup.close());
 }
 
 function handleProfileSubmit(inputValues) {
   api.patchProfile({name: inputValues.username, about: inputValues.description})
     .then(user => userInfo.setUserInfo({name: user.name, description: user.about}))
-    .catch(err => console.log(err));
-  profilePopup.close();
+    .catch(err => console.log(err))
+    .finally(() => profilePopup.close());
 }
 
 function handleNewCardSubmit(inputValues) {
   api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
     .then(card => cardsList.addItem(card, userInfo.getUserInfo().id))
-    .catch(err => console.log(err));
-  newCardPopup.close();
+    .catch(err => console.log(err))
+    .finally(() => newCardPopup.close());
 }
 
 function handleConfirmSubmit(cardToDelete) {
