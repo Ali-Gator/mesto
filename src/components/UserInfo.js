@@ -15,12 +15,19 @@ class UserInfo {
   }
 
   setUserInfo({name, description, avatar, ownUserId}) {
-    this._profileNameEl.textContent = name;
-    this._descriptionEl.textContent = description;
-    this._imageEl.src = avatar;
-    this._ownUserId = ownUserId;
+    if (name) {
+      this._profileNameEl.textContent = name;
+    }
+    if (description) {
+      this._descriptionEl.textContent = description;
+    }
+    if (avatar) {
+      this._imageEl.src = avatar;
+    }
+    if (ownUserId) {
+      this._ownUserId = ownUserId;
+    }
   }
-
 }
 
 export default UserInfo;

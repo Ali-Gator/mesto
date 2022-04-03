@@ -89,17 +89,17 @@ function handleAddNewCardClick() {
   formValidators['add-card'].resetValidation();
   newCardPopup.open();
 }
-// дописать обновление аватара после отправки
+
 function handleAvatarSubmit(inputValue) {
   api.patchAvatar(inputValue['avatar-link'])
-    .then(obj => console.log(obj))
+    .then(user => userInfo.setUserInfo({avatar: user.avatar}))
     .catch(err => console.log(err));
   avatarPopup.close();
 }
 
 function handleProfileSubmit(inputValues) {
   api.patchProfile({name: inputValues.username, about: inputValues.description})
-    .then(user => userInfo.setUserInfo({name: user.name, description: user.about, avatar: user.avatar}))
+    .then(user => userInfo.setUserInfo({name: user.name, description: user.about}))
     .catch(err => console.log(err));
   profilePopup.close();
 }
