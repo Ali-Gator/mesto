@@ -30,8 +30,8 @@ class PopupWithForm extends Popup {
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
       if (this._inputList.length > 0) {
-        this._submitButton.textContent = 'Сохранение...';
         this._handleSubmit(this._getInputValues());
+        this._submitButton.textContent = 'Сохранение...';
       } else {
         this._handleSubmit(this.cardToDelete);
       }
@@ -41,6 +41,11 @@ class PopupWithForm extends Popup {
   close() {
     super.close();
     this._formElement.reset();
+  }
+
+  open() {
+    super.open();
+    this._submitButton.textContent = 'Сохранить';
   }
 }
 
