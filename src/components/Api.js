@@ -33,7 +33,6 @@ class Api {
       body: JSON.stringify({name, about})
     })
       .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
   }
 
   postCard({name, link}) {
@@ -42,8 +41,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({name, link})
     })
-      .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
+      .then(res => this._checkResult(res));
   }
 
   deleteCard(cardId) {
@@ -76,8 +74,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({avatar})
     })
-      .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
+      .then(res => this._checkResult(res));
   }
 }
 
