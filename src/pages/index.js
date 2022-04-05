@@ -5,6 +5,7 @@ import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -17,7 +18,7 @@ const imagePopup = new PopupWithImage('.popup_type_picture');
 const avatarPopup = new PopupWithForm('.popup_type_avatar', handleAvatarSubmit);
 const profilePopup = new PopupWithForm('.popup_type_profile', handleProfileSubmit);
 const newCardPopup = new PopupWithForm('.popup_type_card-add', handleNewCardSubmit);
-const confirmPopup = new PopupWithForm('.popup_type_confirm', handleConfirmSubmit);
+const confirmPopup = new PopupConfirm('.popup_type_confirm', handleConfirmSubmit);
 const cardsList = new Section(createCard, '.cards__list');
 const userInfo = new UserInfo({
   profileSelector: '.profile__name',
