@@ -4,12 +4,16 @@ class Api {
     this._headers = headers;
   }
 
+  _checkResult(res) {
+    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialUser() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -18,7 +22,7 @@ class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -28,7 +32,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({name, about})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -38,7 +42,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({name, link})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -47,7 +51,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -56,7 +60,7 @@ class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -65,7 +69,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 
@@ -75,7 +79,7 @@ class Api {
       headers: this._headers,
       body: JSON.stringify({avatar})
     })
-      .then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`))
+      .then(res => this._checkResult(res))
       .catch(err => console.log(err));
   }
 }
