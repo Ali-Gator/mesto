@@ -6,13 +6,18 @@ class Section {
 
   renderItems(items, ownUserId) {
     items.forEach(item => {
-      this.addItem(item, ownUserId);
+      const card = this.createItem(item, ownUserId);
+      this._containerElement.append(card);
     });
   }
 
-  addItem(item, ownUserId) {
-    const card = this._creator(item, ownUserId);
+  renderItem (item, ownUserId) {
+    const card = this.createItem(item, ownUserId);
     this._containerElement.prepend(card);
+  }
+
+  createItem(item, ownUserId) {
+    return this._creator(item, ownUserId);
   }
 }
 

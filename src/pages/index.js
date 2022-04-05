@@ -102,17 +102,16 @@ function handleProfileSubmit(inputValues) {
 function handleNewCardSubmit(inputValues) {
   return api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
     .then(card => {
-      cardsList.addItem(card, userInfo.getUserInfo().id);
+      console.log(card)
+      cardsList.renderItem(card, card.owner._id);
       newCardPopup.close();
     });
 }
 
 function handleConfirmClick(cardToDelete) {
-  return api.deleteCard(cardToDelete.id)
-    .then((obj) => {
-      console.log(obj)
-      console.dir(cardToDelete)
-      // cardToDelete.deleteCard();
+  return api.deleteCard(cardToDelete.cardId)
+    .then(() => {
+      cardToDelete.deleteCard();
       confirmPopup.close();
     })
     .catch(err => alert(`${err}. Попробуйте ещё раз`));
@@ -127,16 +126,14 @@ changeAvatarButton.addEventListener('click', handleChangeAvatarClick);
 profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
-
 Promise.all([api.getInitialUser(), api.getInitialCards()])
-  .then(data => {
+  .then(([user, cards]) => {
     userInfo.setUserInfo({
-      name: data[0].name,
-      description: data[0].about,
-      avatar: data[0].avatar,
-      ownUserId: data[0]._id
+      name: user.name,
+      description: user.about,
+      avatar: user.avatar,
     });
-    cardsList.renderItems(data[1], userInfo.getUserInfo().id)
+    cardsList.renderItems(cards, user._id)
   })
   .catch(err => console.log(err));
 

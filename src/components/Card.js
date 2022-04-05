@@ -3,7 +3,7 @@ class Card {
     this._name = cardItem.name;
     this._link = cardItem.link;
     this._likes = cardItem.likes;
-    this._cardId = cardItem._id;
+    this.cardId = cardItem._id;
     this._ownerId = cardItem.owner._id;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -25,7 +25,7 @@ class Card {
     this._likeButton = this._card.querySelector('.card__like-icon');
     this._likeCounter = this._card.querySelector('.card__like-counter');
     this._setEventListeners();
-    this._card.id = this._cardId;
+    this._card.id = this.cardId;
     const cardImage = this._card.querySelector('.card__image');
     cardImage.src = this._link;
     cardImage.alt = this._name;
@@ -48,7 +48,7 @@ class Card {
       this._toggleLike(this._card);
     });
     this._card.querySelector('.card__delete-icon').addEventListener('click', () => {
-      this._handleDeleteCard(this._card);
+      this._handleDeleteCard(this);
     });
   }
 
