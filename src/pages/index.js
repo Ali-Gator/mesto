@@ -18,7 +18,7 @@ const imagePopup = new PopupWithImage('.popup_type_picture');
 const avatarPopup = new PopupWithForm('.popup_type_avatar', handleAvatarSubmit);
 const profilePopup = new PopupWithForm('.popup_type_profile', handleProfileSubmit);
 const newCardPopup = new PopupWithForm('.popup_type_card-add', handleNewCardSubmit);
-const confirmPopup = new PopupConfirm('.popup_type_confirm', handleConfirmSubmit);
+const confirmPopup = new PopupConfirm('.popup_type_confirm', handleConfirmClick);
 const cardsList = new Section(createCard, '.cards__list');
 const userInfo = new UserInfo({
   profileSelector: '.profile__name',
@@ -89,7 +89,6 @@ function handleAvatarSubmit(inputValue) {
       userInfo.setUserInfo({avatar: user.avatar});
       avatarPopup.close();
     });
-
 }
 
 function handleProfileSubmit(inputValues) {
@@ -108,10 +107,15 @@ function handleNewCardSubmit(inputValues) {
     });
 }
 
-function handleConfirmSubmit(cardToDelete) {
-  cardToDelete.remove();
-  api.deleteCard(cardToDelete.id);
-  confirmPopup.close();
+function handleConfirmClick(cardToDelete) {
+  return api.deleteCard(cardToDelete.id)
+    .then((obj) => {
+      console.log(obj)
+      console.dir(cardToDelete)
+      // cardToDelete.deleteCard();
+      confirmPopup.close();
+    })
+    .catch(err => alert(`${err}. Попробуйте ещё раз`));
 }
 
 avatarPopup.setEventListeners();
@@ -123,16 +127,16 @@ changeAvatarButton.addEventListener('click', handleChangeAvatarClick);
 profileEditButton.addEventListener('click', handleEditProfileClick);
 cardAddButton.addEventListener('click', handleAddNewCardClick);
 enableValidation(formParameters);
-api.getInitialUser()
-  .then(user => userInfo.setUserInfo({
-    name: user.name,
-    description: user.about,
-    avatar: user.avatar,
-    ownUserId: user._id
-  }))
-  .then(() => api.getInitialCards())
-  .then(cards => {
-    cardsList.renderItems(cards, userInfo.getUserInfo().id)
+
+Promise.all([api.getInitialUser(), api.getInitialCards()])
+  .then(data => {
+    userInfo.setUserInfo({
+      name: data[0].name,
+      description: data[0].about,
+      avatar: data[0].avatar,
+      ownUserId: data[0]._id
+    });
+    cardsList.renderItems(data[1], userInfo.getUserInfo().id)
   })
   .catch(err => console.log(err));
 

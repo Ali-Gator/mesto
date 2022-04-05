@@ -73,6 +73,10 @@ class Card {
   _countLikes(arr) {
     this._likeCounter.textContent = arr.length > 0 ? arr.length : '';
   }
+
+  deleteCard() {
+    this._card.remove();
+  }
 }
 
 export default Card;
