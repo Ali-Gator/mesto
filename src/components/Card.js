@@ -22,6 +22,8 @@ class Card {
 
   generateCard(ownUserId) {
     this._card = this._getTemplate();
+    this._likeButton = this._card.querySelector('.card__like-icon');
+    this._likeCounter = this._card.querySelector('.card__like-counter');
     this._setEventListeners();
     this._card.id = this._cardId;
     const cardImage = this._card.querySelector('.card__image');
@@ -31,7 +33,7 @@ class Card {
       this._card.querySelector('.card__delete-icon').classList.add('card__delete-icon_active');
     }
     this._card.querySelector('.card__text').textContent = this._name;
-    this._card.querySelector('.card__like-counter').textContent = this._likes.length > 0 ? this._likes.length : '';
+    this._countLikes(this._likes);
     if (this._likes.some(user => user._id === ownUserId)) {
       this._card.querySelector('.card__like-icon').classList.add('card__like-icon_pressed');
     }
@@ -42,12 +44,34 @@ class Card {
     this._card.querySelector('.card__image').addEventListener('click', () => {
       this._handleCardClick({name: this._name, link: this._link});
     });
-    this._card.querySelector('.card__like-icon').addEventListener('click', () => {
-      this._handleLikeCard(this._card);
+    this._likeButton.addEventListener('click', () => {
+      this._toggleLike(this._card);
     });
     this._card.querySelector('.card__delete-icon').addEventListener('click', () => {
       this._handleDeleteCard(this._card);
     });
+  }
+
+  _toggleLike(card) {
+    if (this._likeButton.classList.contains('card__like-icon_pressed')) {
+      this._handleLikeCard(card, true)
+        .then(obj => {
+          this._likeButton.classList.remove('card__like-icon_pressed');
+          this._countLikes(obj.likes);
+        })
+        .catch(err => alert(`${err}. Попробуйте ещё раз`));
+    } else {
+      this._handleLikeCard(card, false)
+        .then(obj => {
+          this._countLikes(obj.likes);
+          this._likeButton.classList.add('card__like-icon_pressed');
+        })
+        .catch(err => alert(`${err}. Попробуйте ещё раз`));
+    }
+  }
+
+  _countLikes(arr) {
+    this._likeCounter.textContent = arr.length > 0 ? arr.length : '';
   }
 }
 

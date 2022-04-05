@@ -5,7 +5,7 @@ class Api {
   }
 
   _checkResult(res) {
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
   getInitialUser() {
@@ -51,8 +51,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
+      .then(res => this._checkResult(res));
   }
 
   putLike(cardId) {
@@ -60,8 +59,7 @@ class Api {
       method: 'PUT',
       headers: this._headers
     })
-      .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
+      .then(res => this._checkResult(res));
   }
 
   deleteLike(cardId) {
@@ -69,8 +67,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers
     })
-      .then(res => this._checkResult(res))
-      .catch(err => console.log(err));
+      .then(res => this._checkResult(res));
   }
 
   patchAvatar(avatar) {

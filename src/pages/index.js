@@ -52,18 +52,11 @@ function handleCardClick({name, link}) {
   imagePopup.open({name: name, link: link});
 }
 
-function handleLikeCard(card) {
-  const likeElement = card.querySelector('.card__like-icon');
-  if (likeElement.classList.contains('card__like-icon_pressed')) {
-    likeElement.classList.remove('card__like-icon_pressed');
-    api.deleteLike(card.id)
-      .then(obj => card.querySelector('.card__like-counter').textContent = obj.likes.length > 0 ? obj.likes.length : '')
-      .catch(err => console.log(err));
+function handleLikeCard(card, isLiked) {
+  if (isLiked) {
+    return api.deleteLike(card.id);
   } else {
-    likeElement.classList.add('card__like-icon_pressed');
-    api.putLike(card.id)
-      .then(obj => card.querySelector('.card__like-counter').textContent = obj.likes.length)
-      .catch(err => console.log(err));
+    return api.putLike(card.id);
   }
 }
 
