@@ -7,18 +7,15 @@ class PopupConfirm extends Popup {
     this._confirmButton = this._element.querySelector('.popup__save-button');
   }
 
-  set cardToDelete(card) {
-    return this._cardToDelete = card;
-  }
-
-  get cardToDelete() {
-    return this._cardToDelete;
+  open(card) {
+    super.open();
+    this._cardToDelete = card;
   }
 
   setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener('click', () => {
-      this._handleSubmit(this.cardToDelete);
+      this._handleSubmit(this._cardToDelete);
     });
   }
 }

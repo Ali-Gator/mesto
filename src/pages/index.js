@@ -45,8 +45,7 @@ function enableValidation(config) {
 }
 
 function handleDeleteCard(card) {
-  confirmPopup.open();
-  confirmPopup.cardToDelete = card;
+  confirmPopup.open(card);
 }
 
 function handleCardClick({name, link}) {
