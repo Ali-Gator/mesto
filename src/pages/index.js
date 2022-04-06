@@ -54,15 +54,23 @@ function handleCardClick({name, link}) {
 
 function handleLikeCard(card, isLiked) {
   if (isLiked) {
-    return api.deleteLike(card.id);
+    return api.deleteLike(card.cardId)
+      .then(obj => {
+        card.dislikeCard(obj);
+      })
+      .catch(err => alert(`${err}. Попробуйте ещё раз`));
   } else {
-    return api.putLike(card.id);
+    return api.putLike(card.cardId)
+      .then(obj => {
+        card.likeCard(obj);
+      })
+      .catch(err => alert(`${err}. Попробуйте ещё раз`));
   }
 }
 
 function createCard(cardItem, ownUserId) {
-  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard);
-  return card.generateCard(ownUserId);
+  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard, ownUserId);
+  return card.generateCard();
 }
 
 function handleChangeAvatarClick() {
@@ -84,28 +92,42 @@ function handleAddNewCardClick() {
 }
 
 function handleAvatarSubmit(inputValue) {
+  avatarPopup.changeButtonText('Сохранение...');
   return api.patchAvatar(inputValue['avatar-link'])
     .then(user => {
       userInfo.setUserInfo({avatar: user.avatar});
       avatarPopup.close();
-    });
+    })
+    .catch(err => {
+      alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+    })
+    .finally(() => avatarPopup.changeButtonText('Сохранить'));
 }
 
 function handleProfileSubmit(inputValues) {
+  profilePopup.changeButtonText('Сохранение...');
   return api.patchProfile({name: inputValues.username, about: inputValues.description})
     .then(user => {
       userInfo.setUserInfo({name: user.name, description: user.about});
       profilePopup.close();
-    });
+    })
+    .catch(err => {
+      alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+    })
+    .finally(() => avatarPopup.changeButtonText('Сохранить'));
 }
 
 function handleNewCardSubmit(inputValues) {
+  newCardPopup.changeButtonText('Сохранение...');
   return api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
     .then(card => {
-      console.log(card)
       cardsList.renderItem(card, card.owner._id);
       newCardPopup.close();
-    });
+    })
+    .catch(err => {
+      alert(`${err}. Не удается отправить. Попробуйте ещё раз`);
+    })
+    .finally(() => avatarPopup.changeButtonText('Сохранить'));
 }
 
 function handleConfirmClick(cardToDelete) {
