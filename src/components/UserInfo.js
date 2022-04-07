@@ -10,6 +10,7 @@ class UserInfo {
     this._userInfo.name = this._profileNameEl.textContent;
     this._userInfo.description = this._descriptionEl.textContent;
     this._userInfo.avatar = this._imageEl.src;
+    this._userInfo.ownUserId = this._ownUserId;
     return this._userInfo;
   }
 
@@ -22,6 +23,9 @@ class UserInfo {
     }
     if (avatar) {
       this._imageEl.src = avatar;
+    }
+    if (ownUserId) {
+      this._ownUserId = ownUserId;
     }
   }
 }

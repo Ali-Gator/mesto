@@ -4,20 +4,20 @@ class Section {
     this._containerElement = document.querySelector(containerSelector);
   }
 
-  renderItems(items, ownUserId) {
+  renderItems(items) {
     items.forEach(item => {
-      const card = this.createItem(item, ownUserId);
+      const card = this.createItem(item);
       this._containerElement.append(card);
     });
   }
 
-  renderItem (item, ownUserId) {
-    const card = this.createItem(item, ownUserId);
+  renderItem (item) {
+    const card = this.createItem(item);
     this._containerElement.prepend(card);
   }
 
-  createItem(item, ownUserId) {
-    return this._creator(item, ownUserId);
+  createItem(item) {
+    return this._creator(item);
   }
 }
 

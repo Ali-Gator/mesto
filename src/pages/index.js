@@ -68,8 +68,8 @@ function handleLikeCard(card, isLiked) {
   }
 }
 
-function createCard(cardItem, ownUserId) {
-  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard, ownUserId);
+function createCard(cardItem) {
+  const card = new Card(cardItem, '.template-card', handleCardClick, handleDeleteCard, handleLikeCard, userInfo.getUserInfo().ownUserId);
   return card.generateCard();
 }
 
@@ -121,7 +121,7 @@ function handleNewCardSubmit(inputValues) {
   newCardPopup.changeButtonText('Сохранение...');
   return api.postCard({name: inputValues['card-heading'], link: inputValues['image-link']})
     .then(card => {
-      cardsList.renderItem(card, card.owner._id);
+      cardsList.renderItem(card);
       newCardPopup.close();
     })
     .catch(err => {
@@ -154,8 +154,9 @@ Promise.all([api.getInitialUser(), api.getInitialCards()])
       name: user.name,
       description: user.about,
       avatar: user.avatar,
+      ownUserId: user._id
     });
-    cardsList.renderItems(cards, user._id)
+    cardsList.renderItems(cards)
   })
   .catch(err => console.log(err));
 
